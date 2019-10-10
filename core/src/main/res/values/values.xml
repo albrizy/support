@@ -1,0 +1,31 @@
+<resources>
+
+    <declare-styleable name="PercentRatioImageView">
+        <attr name="ratio" format="float"/>
+        <attr name="orientation" format="enum">
+            <enum name="horizontal" value="0"/>
+            <enum name="vertical" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="AspectRatioFrameLayout">
+        <attr name="widthRatio" format="integer"/>
+        <attr name="heightRatio" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="AspectRatioFrameLayout">
+        <attr name="widthRatio" format="integer"/>
+        <attr name="heightRatio" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="AspectRatioRelativeLayout">
+        <attr name="widthRatio" format="integer"/>
+        <attr name="heightRatio" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="AspectRatioRelativeLayout">
+        <attr name="widthRatio" format="integer"/>
+        <attr name="heightRatio" format="integer"/>
+    </declare-styleable>
+
+</resources>
