@@ -8,24 +8,24 @@
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="AspectRatioFrameLayout">
+    <declare-styleable name="AspectRatioImageView">
         <attr name="widthRatio" format="integer"/>
         <attr name="heightRatio" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="AspectRatioFrameLayout">
-        <attr name="widthRatio" format="integer"/>
-        <attr name="heightRatio" format="integer"/>
+        <attr name="widthRatio"/>
+        <attr name="heightRatio"/>
+    </declare-styleable>
+
+    <declare-styleable name="AspectRatioLinearLayout">
+        <attr name="widthRatio"/>
+        <attr name="heightRatio"/>
     </declare-styleable>
 
     <declare-styleable name="AspectRatioRelativeLayout">
-        <attr name="widthRatio" format="integer"/>
-        <attr name="heightRatio" format="integer"/>
-    </declare-styleable>
-
-    <declare-styleable name="AspectRatioRelativeLayout">
-        <attr name="widthRatio" format="integer"/>
-        <attr name="heightRatio" format="integer"/>
+        <attr name="widthRatio"/>
+        <attr name="heightRatio"/>
     </declare-styleable>
 
 </resources>

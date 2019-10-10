@@ -39,7 +39,7 @@ public abstract class RVAdapter<T> extends Adapter<RVHolder> {
     }
 
     public void swapItems(List<T> items) {
-        this.swapItems(items, new DiffUtil.Callback() {
+        this.swapItems(new DiffUtil.Callback() {
             @Override
             public int getOldListSize() {
                 return RVAdapter.this.items.size();
@@ -63,7 +63,7 @@ public abstract class RVAdapter<T> extends Adapter<RVHolder> {
         });
     }
 
-    public void swapItems(List<T> items, DiffUtil.Callback callback) {
+    public void swapItems(DiffUtil.Callback callback) {
         DiffUtil.calculateDiff(callback).dispatchUpdatesTo(this);
     }
 
