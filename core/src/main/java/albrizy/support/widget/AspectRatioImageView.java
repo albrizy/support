@@ -16,18 +16,18 @@ public class AspectRatioImageView extends AppCompatImageView {
     private int heightRatio;
 
     public AspectRatioImageView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public AspectRatioImageView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public AspectRatioImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AspectRatioFrameLayout);
-        widthRatio = a.getInteger(R.styleable.AspectRatioFrameLayout_widthRatio, 1);
-        heightRatio = a.getInteger(R.styleable.AspectRatioFrameLayout_heightRatio, 1);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AspectRatioImageView);
+        widthRatio = a.getInteger(R.styleable.AspectRatioImageView_widthRatio, 1);
+        heightRatio = a.getInteger(R.styleable.AspectRatioImageView_heightRatio, 1);
         a.recycle();
     }
 

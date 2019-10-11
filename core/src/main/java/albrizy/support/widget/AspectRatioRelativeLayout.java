@@ -15,11 +15,11 @@ public class AspectRatioRelativeLayout extends RelativeLayout {
     private int heightRatio;
 
     public AspectRatioRelativeLayout(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public AspectRatioRelativeLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public AspectRatioRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {

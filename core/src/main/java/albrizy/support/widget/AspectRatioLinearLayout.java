@@ -15,18 +15,18 @@ public class AspectRatioLinearLayout extends LinearLayout {
     private int heightRatio;
 
     public AspectRatioLinearLayout(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public AspectRatioLinearLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public AspectRatioLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AspectRatioRelativeLayout);
-        widthRatio = a.getInteger(R.styleable.AspectRatioRelativeLayout_widthRatio, 1);
-        heightRatio = a.getInteger(R.styleable.AspectRatioRelativeLayout_heightRatio, 1);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AspectRatioLinearLayout);
+        widthRatio = a.getInteger(R.styleable.AspectRatioLinearLayout_widthRatio, 1);
+        heightRatio = a.getInteger(R.styleable.AspectRatioLinearLayout_heightRatio, 1);
         a.recycle();
     }
 

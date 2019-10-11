@@ -17,11 +17,11 @@ public class PercentRatioImageView extends AppCompatImageView {
     private float ratio;
 
     public PercentRatioImageView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public PercentRatioImageView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public PercentRatioImageView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -30,6 +30,13 @@ public class PercentRatioImageView extends AppCompatImageView {
         orientation = a.getInt(R.styleable.PercentRatioImageView_orientation, ORIENTATION_HORIZONTAL);
         ratio = a.getFloat(R.styleable.PercentRatioImageView_ratio, 1.0f);
         a.recycle();
+    }
+
+    public void setRatio(float ratio) {
+        if (this.ratio != ratio) {
+            this.ratio = ratio;
+            requestLayout();
+        }
     }
 
     @Override
