@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.DialogFragment;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 @SuppressWarnings("WeakerAccess")
-public abstract class SupportFragment extends Fragment {
+public abstract class SupportDialogFragment extends DialogFragment {
 
     private Unbinder unbinder;
 

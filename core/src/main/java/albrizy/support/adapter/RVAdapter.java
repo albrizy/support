@@ -7,12 +7,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.DiffUtil.DiffResult;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
@@ -36,35 +32,6 @@ public abstract class RVAdapter<T> extends Adapter<RVHolder> {
 
     public void addItem(T item) {
         this.items.add(item);
-    }
-
-    public void swapItems(List<T> items) {
-        this.swapItems(new DiffUtil.Callback() {
-            @Override
-            public int getOldListSize() {
-                return RVAdapter.this.items.size();
-            }
-
-            @Override
-            public int getNewListSize() {
-                return items.size();
-            }
-
-            @Override
-            public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                return areContentsTheSame(oldItemPosition, newItemPosition);
-            }
-
-            @Override
-            public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                return RVAdapter.this.items.get(oldItemPosition)
-                        .equals(items.get(newItemPosition));
-            }
-        });
-    }
-
-    public void swapItems(DiffUtil.Callback callback) {
-        DiffUtil.calculateDiff(callback).dispatchUpdatesTo(this);
     }
 
     public List<T> getItems() {

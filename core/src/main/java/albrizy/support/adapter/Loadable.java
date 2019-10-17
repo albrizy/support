@@ -40,16 +40,17 @@ public class Loadable extends OnScrollListener {
 
     @Override
     public void onScrollStateChanged(@NonNull RecyclerView rv, int newState) {
-        if (newState == SCROLL_STATE_IDLE && dy > 0 && loadMoreEnabled) {
+        if (!loadMoreEnabled || isLoading) return;
+        if (newState == SCROLL_STATE_IDLE && dy > 0) {
             LayoutManager lm = rv.getLayoutManager();
-            if (canScrollVertically(lm) && !isLoading) {
+            if (canScroll(lm)) {
                 isLoading = true;
                 listener.onLoad();
             }
         }
     }
 
-    private static boolean canScrollVertically(LayoutManager lm) {
+    private static boolean canScroll(LayoutManager lm) {
         return lm instanceof LinearLayoutManager && ((LinearLayoutManager) lm)
                 .findLastVisibleItemPosition() >= lm.getItemCount() -1;
     }
