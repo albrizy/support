@@ -16,13 +16,13 @@ public abstract class LoadableRVAdapter<T> extends RVAdapter<T> {
 
     private final Loadable loadable;
 
-    public LoadableRVAdapter(Context context, @NonNull Loadable loadable) {
-        this(context, loadable, new ArrayList<>());
+    public LoadableRVAdapter(Context context, @NonNull Loadable.OnLoadListener onLoadListener) {
+        this(context, onLoadListener, new ArrayList<>());
     }
 
-    public LoadableRVAdapter(Context context, @NonNull Loadable loadable, @NonNull List<T> items) {
+    public LoadableRVAdapter(Context context, @NonNull Loadable.OnLoadListener onLoadListener, @NonNull List<T> items) {
         super(context, items);
-        this.loadable = loadable;
+        this.loadable = new Loadable(onLoadListener);
     }
 
     public void setLoadMoreEnabled(boolean enabled) {
