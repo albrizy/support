@@ -7,35 +7,34 @@ import android.view.ViewGroup;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView.Adapter;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
-public abstract class RVAdapter<T> extends Adapter<RVHolder> {
+public abstract class RVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
 
+    @NonNull
     private List<T> items;
     private final LayoutInflater inflater;
+
+    public RVAdapter(Context context) {
+        this(context, new ArrayList<>());
+    }
 
     public RVAdapter(Context context, @NonNull List<T> items) {
         this.inflater = LayoutInflater.from(context);
         this.items = items;
     }
 
-    public void setItems(List<T> items) {
-        this.items = items;
-    }
-
-    public void addItems(List<T> items) {
-        this.items.addAll(items);
-    }
-
-    public void addItem(T item) {
-        this.items.add(item);
-    }
-
+    @NonNull
     public List<T> getItems() {
         return items;
+    }
+
+    public T getItem(int position) {
+        return items.get(position);
     }
 
     @Override
@@ -59,20 +58,30 @@ public abstract class RVAdapter<T> extends Adapter<RVHolder> {
         return new RVHolder(inflate(parent, type));
     }
 
+    public void setItems(@NonNull List<T> items) {
+        this.items = items;
+    }
+
+    public void addItems(List<T> items) {
+        this.items.addAll(items);
+    }
+
+    public void addItem(T item) {
+        this.items.add(item);
+    }
+
     public void clear() {
-        try {
-            items.clear();
+        items.clear();
+    }
+
+    public void clear(boolean notify) {
+        items.clear();
+        if (notify) {
             notifyDataSetChanged();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
     public void release() {
-        try {
-            items.clear();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        items.clear();
     }
 }
