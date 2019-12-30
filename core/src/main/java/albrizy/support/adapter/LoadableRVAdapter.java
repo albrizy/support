@@ -67,9 +67,9 @@ public abstract class LoadableRVAdapter<T> extends RVAdapter<T> {
 
     @Override
     public int getItemViewType(int position) {
-        return position < getItems().size()
-                ? getItemType(position)
-                : getLoadingType();
+        return position >= getItems().size()
+                ? getLoadingType()
+                : getItemType(position);
     }
 
     @Override
