@@ -69,6 +69,7 @@ public abstract class LoadableRVAdapter<T> extends RVAdapter<T> {
     }
 
     protected abstract void onBindHolder(@NonNull RVHolder base, int position);
+
     protected void onBindLoadingHolder(@NonNull RVHolder base) {}
 
     public int getLoadingType() {
