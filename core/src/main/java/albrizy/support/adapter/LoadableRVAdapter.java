@@ -1,6 +1,7 @@
 package albrizy.support.adapter;
 
 import android.content.Context;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,6 +49,17 @@ public abstract class LoadableRVAdapter<T> extends RVAdapter<T> {
     public void onDetachedFromRecyclerView(@NonNull RecyclerView rv) {
         rv.removeOnScrollListener(loadable);
     }
+
+    @NonNull
+    @Override
+    public final RVHolder onCreateViewHolder(@NonNull ViewGroup parent, int type) {
+        return type == getLoadingType()
+                ? new RVHolder(inflate(parent, type))
+                : onCreateHolder(parent, type);
+    }
+
+    @NonNull
+    protected abstract RVHolder onCreateHolder(@NonNull ViewGroup parent, int type);
 
     @Override
     public void onBindViewHolder(@NonNull RVHolder base, int position) {
