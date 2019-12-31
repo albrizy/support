@@ -7,10 +7,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import albrizy.support.R;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class RVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
@@ -19,13 +21,26 @@ public abstract class RVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
     private List<T> items;
     private final LayoutInflater inflater;
 
-    public RVAdapter(Context context) {
-        this(context, new ArrayList<>());
+    @Nullable
+    private OnLoadListener onLoadListener;
+    private boolean loadMoreEnabled;
+    private boolean isLoading;
+
+    public RVAdapter(
+            Context context,
+            @NonNull List<T> items) {
+        this(context, items, null);
     }
 
-    public RVAdapter(Context context, @NonNull List<T> items) {
+    public RVAdapter(
+            Context context,
+            @NonNull List<T> items,
+            @Nullable OnLoadListener onLoadListener) {
         this.inflater = LayoutInflater.from(context);
+        this.onLoadListener = onLoadListener;
         this.items = items;
+
+        setLoadMoreEnabled(onLoadListener != null);
     }
 
     @NonNull
@@ -33,55 +48,91 @@ public abstract class RVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
         return items;
     }
 
+    @NonNull
     public T getItem(int position) {
         return items.get(position);
-    }
-
-    @Override
-    public int getItemCount() {
-        return items.size();
-    }
-
-    @NonNull
-    protected View inflate(ViewGroup parent, @LayoutRes int layoutRes) {
-        return inflater.inflate(layoutRes, parent, false);
-    }
-
-    @NonNull
-    protected View inflate(ViewGroup parent, @LayoutRes int layoutRes, boolean attachToRoot) {
-        return inflater.inflate(layoutRes, parent, attachToRoot);
-    }
-
-    @NonNull
-    @Override
-    public RVHolder onCreateViewHolder(@NonNull ViewGroup parent, int type) {
-        return new RVHolder(inflate(parent, type));
     }
 
     public void setItems(@NonNull List<T> items) {
         this.items = items;
     }
 
-    public void addItems(List<T> items) {
+    public void addItems(@NonNull List<T> items) {
         this.items.addAll(items);
     }
 
-    public void addItem(T item) {
-        this.items.add(item);
+    protected abstract int getItemType(int position);
+
+    protected int getLoadingType() {
+        return R.layout.asa_loading_holder;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position < items.size()
+                ? getItemType(position)
+                : getLoadingType();
+    }
+
+    @Override
+    public int getItemCount() {
+        return loadMoreEnabled
+                ? items.size() + 1
+                : items.size();
+    }
+
+    protected View inflate(@NonNull ViewGroup parent, @LayoutRes int layout) {
+        return inflater.inflate(layout, parent, false);
+    }
+
+    protected View inflate(@NonNull ViewGroup parent, @LayoutRes int layout, boolean attachToRoot) {
+        return inflater.inflate(layout, parent, attachToRoot);
+    }
+
+    @NonNull
+    @Override
+    public final RVHolder onCreateViewHolder(@NonNull ViewGroup parent, int type) {
+        return type == getLoadingType()
+                ? new RVHolder(inflate(parent, type))
+                : onCreateHolder(parent, type);
+    }
+
+    @NonNull
+    protected abstract RVHolder onCreateHolder(@NonNull ViewGroup parent, int type) ;
+    protected abstract void onBindHolder(@NonNull RVHolder holder, int position);
+
+    @Override
+    public final void onBindViewHolder(@NonNull RVHolder holder, int position) {
+        if (holder.getItemViewType() == getLoadingType()) {
+            if (loadMoreEnabled
+                    && !isLoading
+                    && onLoadListener != null) {
+                onLoadListener.onLoad();
+            }
+            return;
+        }
+        onBindHolder(holder, position);
+    }
+
+    public void setLoadMoreEnabled(boolean loadMoreEnabled) {
+        this.loadMoreEnabled = loadMoreEnabled;
+    }
+
+    public void notifyLoadingCompleted() {
+        this.isLoading = false;
     }
 
     public void clear() {
-        items.clear();
-    }
-
-    public void clear(boolean notify) {
-        items.clear();
-        if (notify) {
+        try {
+            items.clear();
             notifyDataSetChanged();
-        }
+        } catch (Exception ignored) {}
     }
 
     public void release() {
-        items.clear();
+        try {
+            items.clear();
+        } catch (Exception ignored) {}
+        onLoadListener = null;
     }
 }

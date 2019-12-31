@@ -25,8 +25,11 @@ public abstract class SupportActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(@NonNull Configuration c) {
         super.onConfigurationChanged(c);
-        onOrientationChanged(c.orientation ==
-                Configuration.ORIENTATION_LANDSCAPE);
+        if (c.orientation == Configuration.ORIENTATION_PORTRAIT ||
+            c.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            onOrientationChanged(c.orientation ==
+                    Configuration.ORIENTATION_LANDSCAPE);
+        }
     }
 
     protected void onOrientationChanged(boolean landscape) {}

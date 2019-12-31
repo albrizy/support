@@ -37,8 +37,11 @@ public abstract class SupportFragment extends Fragment {
     @Override
     public void onConfigurationChanged(@NonNull Configuration c) {
         super.onConfigurationChanged(c);
-        onOrientationChanged(c.orientation ==
-                Configuration.ORIENTATION_LANDSCAPE);
+        if (c.orientation == Configuration.ORIENTATION_PORTRAIT ||
+            c.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            onOrientationChanged(c.orientation ==
+                    Configuration.ORIENTATION_LANDSCAPE);
+        }
     }
 
     public boolean isFragmentSafe() {

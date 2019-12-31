@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AppCompatDialogFragment;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 @SuppressWarnings("WeakerAccess")
-public abstract class SupportDialogFragment extends DialogFragment {
+public abstract class SupportDialogFragment extends AppCompatDialogFragment {
 
     private Unbinder unbinder;
 
@@ -37,8 +37,11 @@ public abstract class SupportDialogFragment extends DialogFragment {
     @Override
     public void onConfigurationChanged(@NonNull Configuration c) {
         super.onConfigurationChanged(c);
-        onOrientationChanged(c.orientation ==
-                Configuration.ORIENTATION_LANDSCAPE);
+        if (c.orientation == Configuration.ORIENTATION_PORTRAIT ||
+            c.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            onOrientationChanged(c.orientation ==
+                    Configuration.ORIENTATION_LANDSCAPE);
+        }
     }
 
     public boolean isFragmentSafe() {
