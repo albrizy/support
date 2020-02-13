@@ -61,6 +61,10 @@ public abstract class RVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
         this.items.addAll(items);
     }
 
+    public void addItem(@NonNull T item) {
+        this.items.add(item);
+    }
+
     protected abstract int getItemType(int position);
 
     protected int getLoadingType() {
@@ -82,7 +86,7 @@ public abstract class RVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
     }
 
     protected View inflate(@NonNull ViewGroup parent, @LayoutRes int layout) {
-        return inflater.inflate(layout, parent, false);
+        return inflate(parent, layout, false);
     }
 
     protected View inflate(@NonNull ViewGroup parent, @LayoutRes int layout, boolean attachToRoot) {

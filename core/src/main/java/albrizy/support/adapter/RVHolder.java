@@ -11,5 +11,5 @@ public class RVHolder extends RecyclerView.ViewHolder {
         super(itemView);
     }
 
-    public void release() {};
+    public void release() {}
 }

@@ -1,10 +1,8 @@
 package albrizy.support.app;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,16 +19,4 @@ public abstract class SupportActivity extends AppCompatActivity {
         setContentView(getLayoutRes());
         ButterKnife.bind(this);
     }
-
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration c) {
-        super.onConfigurationChanged(c);
-        if (c.orientation == Configuration.ORIENTATION_PORTRAIT ||
-            c.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            onOrientationChanged(c.orientation ==
-                    Configuration.ORIENTATION_LANDSCAPE);
-        }
-    }
-
-    protected void onOrientationChanged(boolean landscape) {}
 }

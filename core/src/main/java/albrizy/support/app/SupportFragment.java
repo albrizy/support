@@ -34,22 +34,10 @@ public abstract class SupportFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration c) {
-        super.onConfigurationChanged(c);
-        if (c.orientation == Configuration.ORIENTATION_PORTRAIT ||
-            c.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            onOrientationChanged(c.orientation ==
-                    Configuration.ORIENTATION_LANDSCAPE);
-        }
-    }
-
     public boolean isFragmentSafe() {
         return getActivity() != null
                 && getView() != null;
     }
-
-    protected void onOrientationChanged(boolean landscape) {}
 
     @Override
     public void onDestroyView() {
