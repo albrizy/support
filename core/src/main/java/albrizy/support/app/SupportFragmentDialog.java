@@ -1,6 +1,5 @@
 package albrizy.support.app;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +13,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-@SuppressWarnings("WeakerAccess")
-public abstract class SupportDialogFragment extends AppCompatDialogFragment {
+public abstract class SupportFragmentDialog extends AppCompatDialogFragment {
 
     private Unbinder unbinder;
 
@@ -34,7 +32,7 @@ public abstract class SupportDialogFragment extends AppCompatDialogFragment {
         return view;
     }
 
-    public boolean isFragmentSafe() {
+    public boolean isAlive() {
         return getActivity() != null
                 && getView() != null;
     }

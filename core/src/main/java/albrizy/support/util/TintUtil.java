@@ -15,6 +15,8 @@ import androidx.core.graphics.drawable.DrawableCompat;
 @SuppressWarnings("WeakerAccess")
 public class TintUtil {
 
+    private TintUtil() {}
+
     @Nullable
     public static Drawable tint(Context context, @DrawableRes int resId, @ColorInt int color) {
         Drawable dr = ContextCompat.getDrawable(context, resId);

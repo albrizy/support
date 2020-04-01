@@ -22,7 +22,7 @@ public abstract class RVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
     private final LayoutInflater inflater;
 
     @Nullable
-    private OnLoadListener onLoadListener;
+    private OnLoadMoreListener onLoadMoreListener;
     private boolean loadMoreEnabled;
     private boolean isLoading;
 
@@ -35,12 +35,12 @@ public abstract class RVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
     public RVAdapter(
             Context context,
             @NonNull List<T> items,
-            @Nullable OnLoadListener onLoadListener) {
+            @Nullable OnLoadMoreListener onLoadMoreListener) {
         this.inflater = LayoutInflater.from(context);
-        this.onLoadListener = onLoadListener;
+        this.onLoadMoreListener = onLoadMoreListener;
         this.items = items;
 
-        setLoadMoreEnabled(onLoadListener != null);
+        setLoadMoreEnabled(onLoadMoreListener != null);
     }
 
     @NonNull
@@ -68,7 +68,7 @@ public abstract class RVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
     protected abstract int getItemType(int position);
 
     protected int getLoadingType() {
-        return R.layout.asa_loading_holder;
+        return R.layout.support_loading_holder;
     }
 
     @Override
@@ -110,8 +110,9 @@ public abstract class RVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
         if (holder.getItemViewType() == getLoadingType()) {
             if (loadMoreEnabled
                     && !isLoading
-                    && onLoadListener != null) {
-                onLoadListener.onLoad();
+                    && onLoadMoreListener != null) {
+                isLoading = true;
+                onLoadMoreListener.onLoadMore();
             }
             return;
         }
@@ -137,6 +138,6 @@ public abstract class RVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
         try {
             items.clear();
         } catch (Exception ignored) {}
-        onLoadListener = null;
+        onLoadMoreListener = null;
     }
 }
