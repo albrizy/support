@@ -40,7 +40,7 @@ public abstract class RVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
         this.onLoadMoreListener = onLoadMoreListener;
         this.items = items;
 
-        setLoadMoreEnabled(onLoadMoreListener != null);
+        //setLoadMoreEnabled(onLoadMoreListener != null);
     }
 
     @NonNull
@@ -107,7 +107,7 @@ public abstract class RVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
 
     @Override
     public final void onBindViewHolder(@NonNull RVHolder holder, int position) {
-        if (holder.getItemViewType() == getLoadingType() && position > 0) {
+        if (holder.getItemViewType() == getLoadingType()) {
             if (loadMoreEnabled
                     && !isLoading
                     && onLoadMoreListener != null) {
