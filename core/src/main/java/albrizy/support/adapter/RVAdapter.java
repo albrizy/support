@@ -107,7 +107,7 @@ public abstract class RVAdapter<T> extends RecyclerView.Adapter<RVHolder> {
 
     @Override
     public final void onBindViewHolder(@NonNull RVHolder holder, int position) {
-        if (holder.getItemViewType() == getLoadingType()) {
+        if (holder.getItemViewType() == getLoadingType() && position > 0) {
             if (loadMoreEnabled
                     && !isLoading
                     && onLoadMoreListener != null) {
